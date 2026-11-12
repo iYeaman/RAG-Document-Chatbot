@@ -1,106 +1,206 @@
-# 📚 Chat With Your Notes — A Weekend RAG Chatbot
+# 📚 RAG Document Chatbot — Chat With Your Documents
 
-A lightweight Retrieval-Augmented Generation (RAG) chatbot that lets you upload your own PDFs or notes and ask questions grounded in that content. Built as a weekend project — no GPU, no local storage burden, and free to run.
+An AI-powered **Retrieval-Augmented Generation (RAG) chatbot** that allows users to upload PDF documents or text notes and ask questions about their content using natural language.
 
-![Gradio chat interface](./gradio.png)
+Instead of manually searching through lengthy documents, users can interact with their files and receive context-based answers generated using AI.
 
----
+## 🚀 Project Overview
 
-## ✨ Features
+The RAG Document Chatbot combines document processing, semantic search, vector embeddings, and Large Language Models (LLMs) to provide an interactive document question-answering experience.
 
-- **Chat with your own documents** — upload PDFs or `.txt` files and ask natural-language questions
-- **Grounded answers only** — responses are generated strictly from retrieved context, with source file tags shown under each answer
-- **Two interface options**:
-  - A Gradio chat UI that runs directly inside Google Colab with a public shareable link
-  - A Streamlit web app for local use or free deployment
-- **Zero local storage cost** — vector embeddings are computed and stored in-memory during the session
-- **Free to run** — uses Google's Gemini API free tier for generation and a local open-source model for embeddings
+The system retrieves relevant information from uploaded documents and uses that information as context to generate answers.
 
----
+## ✨ Key Features
 
-## 🧱 Tech Stack
+- 📄 **Document-Based Question Answering:** Ask questions about uploaded documents.
+- 🔍 **Semantic Search:** Retrieve information based on meaning rather than exact keyword matching.
+- 🧠 **AI-Powered Responses:** Generate natural-language answers using an LLM.
+- 📚 **Document Processing:** Extract and process text from PDF and TXT files.
+- ⚡ **Context-Aware Retrieval:** Retrieve relevant document sections before generating answers.
+- 💬 **Interactive Chat Interface:** Communicate with your documents through a chatbot.
+- 🗂️ **Vector Storage:** Store document embeddings for similarity-based retrieval.
+- ☁️ **Google Colab Support:** Run the notebook-based application in Google Colab.
 
-| Component | Tool |
-|---|---|
-| LLM (generation) | Google Gemini API (`gemini-2.5-flash-lite`) |
-| Embeddings | `sentence-transformers` (`all-MiniLM-L6-v2`) — runs locally, free |
-| Vector store | ChromaDB (in-memory) |
-| PDF parsing | PyPDF2 |
-| UI (Colab) | Gradio |
-| UI (local/deployed) | Streamlit |
+## 🏗️ System Architecture
 
----
+The application follows a Retrieval-Augmented Generation workflow:
 
-## 📂 Project Files
-
+```text
+       User Uploads Document
+                |
+                v
+        Document Processing
+                |
+                v
+          Text Extraction
+                |
+                v
+          Text Chunking
+                |
+                v
+       Embedding Generation
+                |
+                v
+          ChromaDB Storage
+                |
+                v
+          User Asks Question
+                |
+                v
+        Semantic Retrieval
+                |
+                v
+       Relevant Text Chunks
+                |
+                v
+       Gemini Language Model
+                |
+                v
+        Context-Based Answer
 ```
-├── ragchatbot.ipynb           # Full pipeline + Gradio UI — run this in Google Colab
-├── screenshot.png             # Gradio chat UI screenshot (shown above)
-├── sample_data/
-│   └── unit.pdf                # Example document used to test the chatbot
+
+## 🛠️ Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| Python | Core programming language |
+| Google Gemini API | AI-powered answer generation |
+| Sentence Transformers | Text embedding generation |
+| ChromaDB | Vector database |
+| PyPDF2 | PDF text extraction |
+| Gradio | Interactive chatbot interface |
+| Google Colab | Cloud-based notebook execution |
+
+## 📂 Project Structure
+
+```text
+RAG-Document-Chatbot/
+│
+├── sample-data/
+│   └── Sample documents
+│
+├── RAG_Chatbot.ipynb
+│   └── Main RAG chatbot implementation
+│
+├── gradio.png
+│   └── Application screenshot
+│
 └── README.md
 ```
 
-> An optional Streamlit version (`app.py` + `requirements.txt`) exists for running this outside Colab as a standalone web app. See "Possible Next Steps" below if you want to add it later.
+## ⚙️ Getting Started
+
+### Prerequisites
+
+- A Google account
+- Google Colab access
+- A Google Gemini API key
+
+### Step 1: Clone the Repository
+
+```bash
+git clone https://github.com/iYeaman/RAG-Document-Chatbot.git
+```
+
+```bash
+cd RAG-Document-Chatbot
+```
+
+### Step 2: Open Google Colab
+
+Open [Google Colab](https://colab.research.google.com/).
+
+Upload the `RAG_Chatbot.ipynb` notebook from the cloned repository.
+
+### Step 3: Configure the Gemini API Key
+
+Generate an API key through [Google AI Studio](https://aistudio.google.com/apikey).
+
+Configure the key in the notebook wherever the application requests it.
+
+**Important:** Never upload your API key or other private credentials to GitHub.
+
+### Step 4: Run the Notebook
+
+Execute the notebook cells in order.
+
+The notebook performs the required setup, document processing, embedding generation, retrieval, and chatbot initialization.
+
+### Step 5: Start Chatting
+
+Once the Gradio interface is running, open the generated application link.
+
+Upload a document and start asking questions about its contents.
+
+## 🔄 How Retrieval-Augmented Generation Works
+
+1. **Document Ingestion:** The user uploads a PDF or text document.
+2. **Text Extraction:** Text is extracted from the uploaded document.
+3. **Chunking:** The extracted text is divided into smaller sections.
+4. **Embedding Generation:** Each section is converted into a numerical vector.
+5. **Vector Storage:** The embeddings are stored in ChromaDB.
+6. **Information Retrieval:** The user's question is used to retrieve relevant document sections.
+7. **Answer Generation:** Retrieved context is provided to Gemini to generate a relevant response.
+
+## 💡 Example Questions
+
+After uploading a document, users can ask:
+
+- What is this document about?
+- Summarize the important points.
+- Explain the key concepts in simple language.
+- What are the main conclusions?
+- Find information about a particular topic.
+- Explain a specific section of the document.
+
+## 🎯 Applications
+
+- Academic document analysis
+- Research paper assistance
+- Study material exploration
+- Technical documentation search
+- Report summarization
+- Personal knowledge management
+
+## 🔮 Future Enhancements
+
+- Support for additional document formats such as DOCX.
+- Multiple-document question answering.
+- Conversation history and memory.
+- Improved retrieval accuracy.
+- Source references and page-level citations.
+- Enhanced chatbot interface.
+- Persistent vector database storage.
+- Deployment as a standalone web application.
+
+## 📚 Learning Outcomes
+
+This project demonstrates practical concepts in:
+
+- Generative Artificial Intelligence
+- Retrieval-Augmented Generation (RAG)
+- Large Language Models
+- Natural Language Processing
+- Text Embeddings
+- Semantic Search
+- Vector Databases
+- Prompt Engineering
+- AI Application Development
+
+## 👨‍💻 Author
+
+**Sk Yeaman**
+
+GitHub: [@iYeaman](https://github.com/iYeaman)
+
+Project Repository: [RAG-Document-Chatbot](https://github.com/iYeaman/RAG-Document-Chatbot)
+
+## 🙏 Acknowledgement
+
+This project is based on the open-source RAG Chatbot project by [km-devlab](https://github.com/km-devlab/RAG-Chatbot).
+
+Credit goes to the original project contributors. This repository is maintained as a learning and academic project.
 
 ---
 
-## 🚀 Getting Started
-
-### Option A — Google Colab (fastest, no install)
-
-1. Get a free Gemini API key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey) (Google account only, no card needed)
-2. Upload `ragchatbot.ipynb` to [colab.research.google.com](https://colab.research.google.com)
-3. Run every cell from top to bottom:
-   - Install dependencies
-   - Paste your Gemini API key
-   - Upload your PDFs/notes
-   - Wait for chunking + embedding to finish
-4. Run the final Gradio cell — it prints a public link like `https://xxxxx.gradio.live`
-5. Open that link and start chatting
-
-### Option B (optional, not yet built) — Streamlit
-
-A Streamlit version can be added later for running this outside Colab as a standalone web app or free-hosted link. Not included in this repo yet — see "Possible Next Steps."
-
----
-
-## 🖼️ Adding the screenshot
-
-To include your own Gradio output image in this README:
-
-1. Take a screenshot of your running Gradio chat interface
-2. Save it in the same folder as this README, named `screenshot.png`
-3. The `![Gradio chat interface](./screenshot.png)` line at the top of this file will then render it automatically on GitHub or in any Markdown viewer
-
----
-
-## ⚙️ How It Works (RAG Pipeline)
-
-1. **Extract** — text is pulled from uploaded PDFs/notes
-2. **Chunk** — text is split into overlapping ~500-character chunks so context isn't lost at boundaries
-3. **Embed** — each chunk is converted into a vector using `all-MiniLM-L6-v2`
-4. **Store** — vectors are saved in a ChromaDB collection
-5. **Retrieve** — when you ask a question, the top-matching chunks are pulled from the vector store
-6. **Generate** — those chunks are passed as context to Gemini, which answers using only that information
-
----
-
-## 🔧 Troubleshooting
-
-| Symptom | Likely cause |
-|---|---|
-| Blank chat bubble, no error | Gemini returned an empty/filtered response — check the Colab cell output for a `DEBUG:` line |
-| `429` error / rate limit | Free tier quota hit — wait for the per-minute or daily reset, or switch to `gemini-2.5-flash-lite` for higher limits |
-| `NameError` in Gradio chat | Setup cells weren't re-run after a Colab runtime restart — re-run all cells from the top |
-| Gradio cell "hangs" | Expected — the cell keeps running as long as the server is live. Look for the `Running on public URL:` line above the spinner |
-
----
-
-## 🗺️ Possible Next Steps
-
-- Add a standalone Streamlit web app (`app.py`) for running outside Colab, deployable free on Streamlit Community Cloud
-- Persist the vector database (`chromadb.PersistentClient`) instead of in-memory storage
-- Support multiple simultaneous document sets
-- Swap in a different LLM by editing only the `ask_rag_chatbot` function
-- Deploy the Gradio version permanently on Hugging Face Spaces (free)
+⭐ If you find this project useful, consider giving the repository a star!
